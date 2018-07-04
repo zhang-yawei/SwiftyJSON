@@ -41,12 +41,12 @@ public let ErrorNotExist: Int = 500
 public let ErrorInvalidJSON: Int = 490
 
 public enum SwiftyJSONError: Int, Swift.Error {
-    case unsupportedType = 999
-    case indexOutOfBounds = 900
-    case elementTooDeep = 902
-    case wrongType = 901
-    case notExist = 500
-    case invalidJSON = 490
+    case unsupportedType = 999 // 不支持的类型
+    case indexOutOfBounds = 900  // 越界
+    case elementTooDeep = 902  //
+    case wrongType = 901   // 错误类型
+    case notExist = 500  // 不存在
+    case invalidJSON = 490  // 不可用的jison
 }
 
 extension SwiftyJSONError: CustomNSError {
@@ -202,6 +202,7 @@ public struct JSON {
      Private woker function which does the actual merging
      Typecheck is set to true for the first recursion level to prevent total override of the source JSON
  	*/
+//    mutating 可变方法. struce和enum不能在实例方法中修改自身成员的值,如果要修改,可以使用mutating
  	fileprivate mutating func merge(with other: JSON, typecheck: Bool) throws {
         if self.type == other.type {
             switch self.type {
@@ -346,6 +347,7 @@ extension JSON: Swift.Collection {
 
     public typealias Index = JSONRawIndex
 
+    // 只读计算属性. 只有get, 没有set.可以省略get字样
     public var startIndex: Index {
         switch type {
         case .array:

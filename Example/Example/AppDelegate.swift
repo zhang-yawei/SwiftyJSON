@@ -32,7 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let navigationController = self.window?.rootViewController as! UINavigationController
         let viewController = navigationController.topViewController as! ViewController
-
         if let file = Bundle.main.path(forResource: "SwiftyJSONTests", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: file))
