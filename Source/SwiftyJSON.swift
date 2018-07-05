@@ -398,8 +398,18 @@ extension JSON: Swift.Collection {
 
 /**
  *  To mark both String and Int can be used in subscript.
+ 
+ 枚举类型关联值.
+ 
+ case let .index(indexCount):
+ print("index: \(indexCount))
+ case let .key(keyValue):
+ print("key code: \(keyValue)")
+ }
  */
+
 public enum JSONKey {
+
     case index(Int)
     case key(String)
 }
@@ -408,12 +418,13 @@ public protocol JSONSubscriptType {
     var jsonKey: JSONKey { get }
 }
 
+// 把 int 和 string 转为 JSONKey
 extension Int: JSONSubscriptType {
     public var jsonKey: JSONKey {
         return JSONKey.index(self)
     }
 }
-
+// 把 int 和 string 转为 JSONKey
 extension String: JSONSubscriptType {
     public var jsonKey: JSONKey {
         return JSONKey.key(self)
@@ -501,6 +512,7 @@ extension JSON {
 	
 	 - returns: Return a json found by the path or a null json with error
 	 */
+
     public subscript(path: [JSONSubscriptType]) -> JSON {
         get {
             return path.reduce(self) { $0[sub: $1] }
